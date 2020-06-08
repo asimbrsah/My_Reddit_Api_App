@@ -1,0 +1,197 @@
+/**
+ * The first line in the build configuration applies the Android plugin for
+ * Gradle to this build and makes the android block available to specify
+ * Android-specific build options.
+ */
+apply plugin: 'com.android.application'
+
+/**Loading store property file */
+def storePropertiesFile = rootProject.file("store.properties")
+def storeProperties = new Properties()
+storeProperties.load(new FileInputStream(storePropertiesFile))
+
+/**
+ * The android block is where you configure all your Android-specific
+ * build options.
+ */
+android {
+
+    /**
+     * compileSdkVersion specifies the Android API level Gradle should use to
+     * compile your app. This means your app can use the API features included in
+     * this API level and lower.
+     */
+    compileSdkVersion rootProject.ext.targetSdkVer
+
+    /**
+     * buildToolsVersion specifies the version of the SDK build tools, command-line
+     * utilities, and compiler that Gradle should use to build your app. You need to
+     * download the build tools using the SDK Manager.
+     *
+     * This property is optional because the plugin uses a recommended version of
+     * the build tools by default.
+     */
+    buildToolsVersion rootProject.ext.buildToolsVer
+
+    /**Signing config mainly used for setting the keystore file for releasing apk to store*/
+    signingConfigs {
+        release {
+            storeFile file(storeProperties['prod_key_store_certificate'])
+            storePassword storeProperties['prod_key_store_password']
+            keyAlias storeProperties['prod_key_alias']
+            keyPassword storeProperties['prod_key_password']
+        }
+    }
+
+    /**
+     * The defaultConfig block encapsulates default settings and entries for all
+     * build variants, and can override some attributes in main/AndroidManifest.xml
+     * dynamically from the build system. You can configure product flavors to override
+     * these values for different versions of your app.
+     */
+    defaultConfig {
+        /**
+         * applicationId uniquely identifies the package for publishing.
+         * However, your source code should still reference the package name
+         * defined by the package attribute in the main/AndroidManifest.xml file.
+         */
+        applicationId rootProject.ext.packageName
+        // Defines the minimum API level required to run the app.
+        minSdkVersion rootProject.ext.minSdkVer
+        // Specifies the API level used to test the app.
+        targetSdkVersion rootProject.ext.targetSdkVer
+        // Defines the version number of your app.
+        versionCode rootProject.ext.appVerCode
+        // Defines a user-friendly version name for your app.
+        versionName rootProject.ext.appVerName
+    }
+
+    /**
+     * The buildTypes block is where you can configure multiple build types.
+     * By default, the build system defines two build types: debug and release. The
+     * debug build type is not explicitly shown in the default build configuration,
+     * but it includes debugging tools and is signed with the debug key. The release
+     * build type applies Proguard settings and is not signed by default.
+     */
+
+    buildTypes {
+        /**
+         * By default, Android Studio configures the release build type to enable code
+         * shrinking, using minifyEnabled, and specifies the default Proguard rules file.
+         */
+        debug {
+            debuggable true
+            minifyEnabled false
+
+            // APIs
+            buildConfigField("String", "BASE_URL", "\"${storeProperties['staging_base_url']}\"")
+            buildConfigField("String", "ALL_CATEGORY_END_POINT_URL", "\"${storeProperties['all_category_end_point_url']}\"")
+            buildConfigField("String", "POPULAR_CATEGORY_END_POINT_URL", "\"${storeProperties['popular_category_end_point_url']}\"")
+            buildConfigField("String", "ART_CATEGORY_END_POINT_URL", "\"${storeProperties['art_category_end_point_url']}\"")
+
+            // Constants values
+            buildConfigField("String", "SHARED_PREF_NAME", "\"${storeProperties['staging_shared_preference_name']}\"")
+            buildConfigField("String", "DATABASE_NAME", "\"${storeProperties['staging_room_database_name']}\"")
+        }
+        staging {
+            debuggable false
+            // Optimize app size
+            minifyEnabled true
+            shrinkResources true
+            // For better optimization enable proguard
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            // APIs
+            buildConfigField("String", "BASE_URL", "\"${storeProperties['staging_base_url']}\"")
+            buildConfigField("String", "ALL_CATEGORY_END_POINT_URL", "\"${storeProperties['all_category_end_point_url']}\"")
+            buildConfigField("String", "POPULAR_CATEGORY_END_POINT_URL", "\"${storeProperties['popular_category_end_point_url']}\"")
+            buildConfigField("String", "ART_CATEGORY_END_POINT_URL", "\"${storeProperties['art_category_end_point_url']}\"")
+
+            // Constants values
+            buildConfigField("String", "SHARED_PREF_NAME", "\"${storeProperties['staging_shared_preference_name']}\"")
+            buildConfigField("String", "DATABASE_NAME", "\"${storeProperties['staging_room_database_name']}\"")
+        }
+        release {
+            debuggable false
+            // Optimize app size
+            minifyEnabled true
+            shrinkResources true
+            // For better optimization enable proguard
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+
+            // APIs
+            buildConfigField("String", "BASE_URL", "\"${storeProperties['production_base_url']}\"")
+            buildConfigField("String", "ALL_CATEGORY_END_POINT_URL", "\"${storeProperties['all_category_end_point_url']}\"")
+            buildConfigField("String", "POPULAR_CATEGORY_END_POINT_URL", "\"${storeProperties['popular_category_end_point_url']}\"")
+            buildConfigField("String", "ART_CATEGORY_END_POINT_URL", "\"${storeProperties['art_category_end_point_url']}\"")
+
+            // Constants values
+            buildConfigField("String", "SHARED_PREF_NAME", "\"${storeProperties['production_shared_preference_name']}\"")
+            buildConfigField("String", "DATABASE_NAME", "\"${storeProperties['production_room_database_name']}\"")
+        }
+    }
+
+    // Using Java 8
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+/**
+ * The dependencies block in the module-level build configuration file
+ * specifies dependencies required to build only the module itself.
+ */
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Support Library
+    implementation "androidx.appcompat:appcompat:${rootProject.ext.supportLibraryVer}"
+    implementation "androidx.constraintlayout:constraintlayout:${rootProject.ext.constraintLayoutVer}"
+    implementation "com.google.android.material:material:${rootProject.ext.materialVer}"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:${rootProject.ext.swipeRefreshLayoutVer}"
+
+    // ViewModel and LiveData
+    implementation "androidx.lifecycle:lifecycle-extensions:${rootProject.ext.liveDataVer}"
+
+    // Dagger
+    implementation "com.google.dagger:dagger:${rootProject.ext.daggerVer}"
+    annotationProcessor "com.google.dagger:dagger-compiler:${rootProject.ext.daggerVer}"
+    implementation "com.google.dagger:dagger-android:${rootProject.ext.daggerVer}"
+    implementation "com.google.dagger:dagger-android-support:${rootProject.ext.daggerVer}"
+    annotationProcessor "com.google.dagger:dagger-android-processor:${rootProject.ext.daggerVer}"
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:${rootProject.ext.retrofitVer}"
+    implementation "com.squareup.retrofit2:converter-gson:${rootProject.ext.retrofitVer}"
+
+    // RxJava
+    implementation "io.reactivex.rxjava2:rxjava:${rootProject.ext.rxJavaVer}"
+
+    // RxAndroid
+    implementation "io.reactivex.rxjava2:rxandroid:${rootProject.ext.rxAndroidVer}"
+
+    // Retrofit Adapter
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${rootProject.ext.retrofitVer}"
+
+    // Room Database
+    implementation "androidx.room:room-runtime:${rootProject.ext.roomVer}"
+    implementation "androidx.room:room-rxjava2:${rootProject.ext.roomVer}"
+    annotationProcessor "androidx.room:room-compiler:${rootProject.ext.roomVer}"
+
+    // Glide Image Loading
+    implementation "com.github.bumptech.glide:glide:${rootProject.ext.glideVer}"
+    annotationProcessor "com.github.bumptech.glide:compiler:${rootProject.ext.glideVer}"
+
+    // Interceptor
+    implementation "com.squareup.okhttp3:logging-interceptor:${rootProject.ext.okHttpLogInterceptorVer}"
+
+    // Timber (Logging library)
+    implementation "com.jakewharton.timber:timber:${rootProject.ext.timberVer}"
+
+    // Testing
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
