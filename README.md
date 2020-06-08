@@ -4,13 +4,13 @@
 
 - Dagger2 ( It is being used for injecting dependencies wherever required. )
 - Retrofit ( It is being used to make network call easier and maintainable. )
-- Rx-java/ Rx-android ( It is being used for handling thread safe api call. )
-- Interceptor ( HttpLoggingInterceptor is being used for logging, we can always create custom Interceptor for Tokenization, Localization etc.. )
-- Timber (It is being used for printing log based on the build types for example the custom TimberTree for release build type. )
-- Glide ( For fetching the images and GIFs from network/ local Glide is being used )
+- Rx-java/ Rx-android ( It is a great example of handling thread safe api call. )
+- Interceptor ( HttpLoggingInterceptor is being used for logging on the top of Network layer, we can always create custom Interceptor and apply on the top of network layer. for example Tokenization, Api Localization ..etc can be handled from here. )
+- Timber (It is being used for printing log, based on the build types. for example the custom TimberTree for release build type. )
+- Glide ( For fetching the images and GIFs from network/ local Glide is being used. )
 - Room Database ( Great exchange of SQLite Database is Room Persistence library which provides compile time error and much more flexibility to use in our project. )
 - Gson ( It is a type of converter being used for serialization and deserialization)
-- Google android material design ( provides some great material design library...)
+- Google android material design ( provides some great material designs to use in our projects...)
 
 
 ## To be noted
