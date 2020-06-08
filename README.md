@@ -1,6 +1,6 @@
 # Reddit api based sample android app
 
-## This app is a great example of powerful MVVM Architecture. following are some great libraries used in this project...
+## This app is a great example of powerful MVVM Architecture pattern. following are some great libraries used in this project...
 
 - Dagger2 ( It is being used for injecting dependencies wherever required. )
 - Retrofit ( It is being used to make network call easier and maintainable. )
@@ -13,23 +13,21 @@
 - Google android material design ( provides some great material design library...)
 
 
-# To be noted
+## To be noted
 - This project is based on Java language.
 - To build this project latest MVVM Architecture pattern has been followed.
 - The Build system has been configured in such a way to provide security for the project.
 
 
-Library Reference Resources:
-```
-# RxJava
-https://proandroiddev.com/exploring-rxjava-in-android-e52ed7ef32e2
+## Library Reference Resources:
 
-# Dagger
-https://medium.com/@harivigneshjayapalan/dagger-2-for-android-beginners-dagger-2-part-i-f2de5564ab25
-https://www.youtube.com/watch?v=3qZh6Fyrz-k&list=PLgCYzUzKIBE8AOAspC3DHoBNZIBHbIOsC
+### RxJava
+- https://proandroiddev.com/exploring-rxjava-in-android-e52ed7ef32e2
 
-# Blog Resources
-https://blog.mindorks.com/
-https://medium.com/topic/android-development
+### Dagger
+- https://medium.com/@harivigneshjayapalan/dagger-2-for-android-beginners-dagger-2-part-i-f2de5564ab25
+- https://www.youtube.com/watch?v=3qZh6Fyrz-k&list=PLgCYzUzKIBE8AOAspC3DHoBNZIBHbIOsC
 
-```
+### Blog Resources
+- https://blog.mindorks.com/
+- https://medium.com/topic/android-development
