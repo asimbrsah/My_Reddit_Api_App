@@ -64,6 +64,8 @@ android {
         versionCode rootProject.ext.appVerCode
         // Defines a user-friendly version name for your app.
         versionName rootProject.ext.appVerName
+        // MultiDex enable
+        multiDexEnabled true
     }
 
     /**
@@ -75,16 +77,13 @@ android {
      */
 
     buildTypes {
-        /**
-         * By default, Android Studio configures the release build type to enable code
-         * shrinking, using minifyEnabled, and specifies the default Proguard rules file.
-         */
         debug {
             debuggable true
             minifyEnabled false
 
             // APIs
             buildConfigField("String", "BASE_URL", "\"${storeProperties['staging_base_url']}\"")
+            buildConfigField("String", "DEFAULT_CATEGORY_KEY_VALUE", "\"${storeProperties['default_category_key_value']}\"")
             buildConfigField("String", "ALL_CATEGORY_END_POINT_URL", "\"${storeProperties['all_category_end_point_url']}\"")
             buildConfigField("String", "POPULAR_CATEGORY_END_POINT_URL", "\"${storeProperties['popular_category_end_point_url']}\"")
             buildConfigField("String", "ART_CATEGORY_END_POINT_URL", "\"${storeProperties['art_category_end_point_url']}\"")
@@ -92,6 +91,8 @@ android {
             // Constants values
             buildConfigField("String", "SHARED_PREF_NAME", "\"${storeProperties['staging_shared_preference_name']}\"")
             buildConfigField("String", "DATABASE_NAME", "\"${storeProperties['staging_room_database_name']}\"")
+            buildConfigField("String", "RECYCLER_VIEW_DEFAULT_ITEM_LIMIT", "\"${storeProperties['recycler_view_default_item_limit']}\"")
+            buildConfigField("String", "RECYCLER_VIEW_DEFAULT_ITEM_COUNT", "\"${storeProperties['recycler_view_default_item_count']}\"")
         }
         staging {
             debuggable false
@@ -103,6 +104,7 @@ android {
 
             // APIs
             buildConfigField("String", "BASE_URL", "\"${storeProperties['staging_base_url']}\"")
+            buildConfigField("String", "DEFAULT_CATEGORY_KEY_VALUE", "\"${storeProperties['default_category_key_value']}\"")
             buildConfigField("String", "ALL_CATEGORY_END_POINT_URL", "\"${storeProperties['all_category_end_point_url']}\"")
             buildConfigField("String", "POPULAR_CATEGORY_END_POINT_URL", "\"${storeProperties['popular_category_end_point_url']}\"")
             buildConfigField("String", "ART_CATEGORY_END_POINT_URL", "\"${storeProperties['art_category_end_point_url']}\"")
@@ -110,6 +112,8 @@ android {
             // Constants values
             buildConfigField("String", "SHARED_PREF_NAME", "\"${storeProperties['staging_shared_preference_name']}\"")
             buildConfigField("String", "DATABASE_NAME", "\"${storeProperties['staging_room_database_name']}\"")
+            buildConfigField("String", "RECYCLER_VIEW_DEFAULT_ITEM_LIMIT", "\"${storeProperties['recycler_view_default_item_limit']}\"")
+            buildConfigField("String", "RECYCLER_VIEW_DEFAULT_ITEM_COUNT", "\"${storeProperties['recycler_view_default_item_count']}\"")
         }
         release {
             debuggable false
@@ -122,6 +126,7 @@ android {
 
             // APIs
             buildConfigField("String", "BASE_URL", "\"${storeProperties['production_base_url']}\"")
+            buildConfigField("String", "DEFAULT_CATEGORY_KEY_VALUE", "\"${storeProperties['default_category_key_value']}\"")
             buildConfigField("String", "ALL_CATEGORY_END_POINT_URL", "\"${storeProperties['all_category_end_point_url']}\"")
             buildConfigField("String", "POPULAR_CATEGORY_END_POINT_URL", "\"${storeProperties['popular_category_end_point_url']}\"")
             buildConfigField("String", "ART_CATEGORY_END_POINT_URL", "\"${storeProperties['art_category_end_point_url']}\"")
@@ -129,6 +134,8 @@ android {
             // Constants values
             buildConfigField("String", "SHARED_PREF_NAME", "\"${storeProperties['production_shared_preference_name']}\"")
             buildConfigField("String", "DATABASE_NAME", "\"${storeProperties['production_room_database_name']}\"")
+            buildConfigField("String", "RECYCLER_VIEW_DEFAULT_ITEM_LIMIT", "\"${storeProperties['recycler_view_default_item_limit']}\"")
+            buildConfigField("String", "RECYCLER_VIEW_DEFAULT_ITEM_COUNT", "\"${storeProperties['recycler_view_default_item_count']}\"")
         }
     }
 
@@ -151,6 +158,9 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:${rootProject.ext.constraintLayoutVer}"
     implementation "com.google.android.material:material:${rootProject.ext.materialVer}"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:${rootProject.ext.swipeRefreshLayoutVer}"
+
+    // MultiDex prior to Android 5.0
+    implementation "androidx.multidex:multidex:${rootProject.ext.multidexVer}"
 
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:${rootProject.ext.liveDataVer}"
@@ -187,8 +197,11 @@ dependencies {
     // Interceptor
     implementation "com.squareup.okhttp3:logging-interceptor:${rootProject.ext.okHttpLogInterceptorVer}"
 
-    // Timber (Logging library)
+    // Timber (Log)
     implementation "com.jakewharton.timber:timber:${rootProject.ext.timberVer}"
+
+    // Exo player (Media player dependency)
+    implementation "com.google.android.exoplayer:exoplayer:${rootProject.ext.exoPlayerVer}"
 
     // Testing
     testImplementation 'junit:junit:4.12'

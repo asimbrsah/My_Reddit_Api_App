@@ -1,4 +1,4 @@
-package com.example.myredditapiapp.presentation.launcher.category;
+package com.example.myredditapiapp.presentation.main.category;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -31,16 +31,22 @@ public class CategoryViewModel extends BaseViewModel {
         this.networkUtil = networkUtil;
     }
 
-    void loadCategoryData(String categoryName) {
+    void loadCategoryData(String categoryName,
+                          String limit,
+                          String afterKey,
+                          String count) {
         if (networkUtil.isInternetAvailable()) {
-            setCompositeDisposable(loadCategoryDataDisposable(categoryName));
+            setCompositeDisposable(loadCategoryDataDisposable(categoryName, limit, afterKey, count));
         } else {
             internetAvailable.setValue(new Object());
         }
     }
 
-    private Disposable loadCategoryDataDisposable(String categoryName) {
-        return categoryRepository.getCategoryData(categoryName)
+    private Disposable loadCategoryDataDisposable(String categoryName,
+                                                  String limit,
+                                                  String afterKey,
+                                                  String count) {
+        return categoryRepository.getCategoryData(categoryName, limit, afterKey, count)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(disposable -> loading.setValue(true))

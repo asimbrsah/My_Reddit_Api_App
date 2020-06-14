@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.myredditapiapp.R;
 import com.example.myredditapiapp.factory.ViewModelProviderFactory;
 
 import javax.inject.Inject;

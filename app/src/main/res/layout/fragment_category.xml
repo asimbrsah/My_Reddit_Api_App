@@ -5,17 +5,17 @@
     android:id="@+id/swipe_lyt"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.launcher.category.CategoryFragment">
+    tools:context=".presentation.main.category.CategoryFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <include
-            android:id="@+id/lyt_horizontal_progress"
-            layout="@layout/horizontal_progress_bar"
+            android:id="@+id/include_horizontal_progress_bar"
+            layout="@layout/include_horizontal_progress_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_8dp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -26,12 +26,25 @@
             android:id="@+id/recycler_category"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:paddingTop="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/include_circular_progress_bar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:itemCount="2"
+            tools:listitem="@layout/item_category" />
+
+        <include
+            android:id="@+id/include_circular_progress_bar"
+            layout="@layout/include_circular_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lyt_horizontal_progress"
-            tools:itemCount="2"
-            tools:listitem="@layout/item_category" />
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

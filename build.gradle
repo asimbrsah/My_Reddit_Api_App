@@ -74,6 +74,9 @@ ext {
     materialVer = "1.1.0"
     swipeRefreshLayoutVer = "1.0.0"
 
+    // MultiDex ver
+    multidexVer = "2.0.1"
+
     // Navigation
     navigationVer = "2.2.2"
 
@@ -81,7 +84,7 @@ ext {
     liveDataVer = "2.2.0"
 
     // Dagger
-    daggerVer = "2.25.2"
+    daggerVer = "2.25.4"
 
     // Retrofit
     retrofitVer = "2.5.0"
@@ -104,4 +107,7 @@ ext {
 
     // Timber Logging
     timberVer = "4.7.1"
+
+    // Exo Player
+    exoPlayerVer = "2.11.5"
 }

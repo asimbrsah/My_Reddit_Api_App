@@ -12,16 +12,16 @@ import io.reactivex.Single;
 
 @Dao
 public interface CategoryDataDao {
-//
-//    @Query("SELECT * from category_data_table ORDER BY id ASC")
-//    Single<CategoryResponseModel> getCategoryData();
-//
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    void setCategoryData(CategoryResponseModel categoryResponseModel);
-//
-//    @Query("DELETE FROM category_data_table")
-//    void deleteAllCategoryData();
-//
-//    @Update(onConflict = OnConflictStrategy.REPLACE)
-//    void updateCategoryData(CategoryResponseModel categoryResponseModel);
+
+    @Query("SELECT * from category_data_table")
+    Single<CategoryResponseModel> getCategoryData();
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void setCategoryData(CategoryResponseModel categoryResponseModel);
+
+    @Query("DELETE FROM category_data_table")
+    void deleteAllCategoryData();
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    void updateCategoryData(CategoryResponseModel categoryResponseModel);
 }

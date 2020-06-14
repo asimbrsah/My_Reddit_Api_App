@@ -26,7 +26,7 @@ public class RepositoryProviderModule {
     @Singleton
     @Provides
     @Local
-    CategorySourceProvider provideCategoryLocalDataProvider() {
-        return new CategoryLocalDataProvider();
+    CategorySourceProvider provideCategoryLocalDataProvider(CategoryDataDao categoryDataDao) {
+        return new CategoryLocalDataProvider(categoryDataDao);
     }
 }

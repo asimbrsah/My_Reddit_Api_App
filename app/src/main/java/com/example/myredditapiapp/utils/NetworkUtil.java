@@ -3,12 +3,12 @@ package com.example.myredditapiapp.utils;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import javax.inject.Singleton;
+import javax.inject.Inject;
 
-@Singleton
 public class NetworkUtil {
     private ConnectivityManager connectivityManager;
 
+    @Inject
     public NetworkUtil(ConnectivityManager connectivityManager) {
         this.connectivityManager = connectivityManager;
     }

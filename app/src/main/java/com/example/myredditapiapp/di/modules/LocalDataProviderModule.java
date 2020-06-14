@@ -33,4 +33,10 @@ public class LocalDataProviderModule {
     PreferenceProvider providePreferenceProvider(Application application) {
         return new PreferenceManager(application);
     }
+
+    @Singleton
+    @Provides
+    CategoryDataDao provideCategoryDataDao(AppDatabase appDatabase) {
+        return appDatabase.categoryDataDao();
+    }
 }

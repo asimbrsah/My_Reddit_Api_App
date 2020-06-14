@@ -18,9 +18,9 @@
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
         <activity
-            android:name=".presentation.splash.SplashActivity"
+            android:name=".presentation.launcher.LauncherActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.SplashTheme">
+            android:theme="@style/AppTheme.LauncherTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -28,7 +28,7 @@
         </activity>
 
         <activity
-            android:name=".presentation.launcher.LauncherActivity"
+            android:name=".presentation.main.MainActivity"
             android:screenOrientation="portrait" />
     </application>
 </manifest>

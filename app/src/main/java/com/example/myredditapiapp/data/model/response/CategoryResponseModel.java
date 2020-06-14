@@ -1,15 +1,25 @@
 package com.example.myredditapiapp.data.model.response;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+@Entity(tableName = "category_data_table")
 public class CategoryResponseModel {
 
-    @SerializedName("id")
+    @PrimaryKey(autoGenerate = true)
     private int id;
 
     @SerializedName("data")
+    @Expose
+    @Embedded
     private Data data;
 
     public int getId() {
@@ -30,103 +40,43 @@ public class CategoryResponseModel {
 
     public static class Data {
 
-        @SerializedName("children")
-        private List<Children> children = null;
+        @SerializedName("dist")
+        @Expose
+        @ColumnInfo(name = "dist")
+        private Integer dataListCount;
 
-        public List<Children> getChildren() {
+        @SerializedName("children")
+        @Expose
+        @Ignore
+        private List<ChildrenResponseModel> children;
+
+        @SerializedName("after")
+        @Expose
+        @ColumnInfo(name = "category_default_key")
+        private String categoryDefaultKey;
+
+        public Integer getDataListCount() {
+            return dataListCount;
+        }
+
+        public void setDataListCount(Integer dataListCount) {
+            this.dataListCount = dataListCount;
+        }
+
+        public List<ChildrenResponseModel> getChildren() {
             return children;
         }
 
-        public void setChildren(List<Children> children) {
+        public void setChildren(List<ChildrenResponseModel> children) {
             this.children = children;
         }
 
-        public static class Children {
+        public String getCategoryDefaultKey() {
+            return categoryDefaultKey;
+        }
 
-            @SerializedName("data")
-            private ChildrenData childrenData;
-
-            public ChildrenData getChildrenData() {
-                return childrenData;
-            }
-
-            public void setChildrenData(ChildrenData childrenData) {
-                this.childrenData = childrenData;
-            }
-
-            public static class ChildrenData {
-
-                @SerializedName("subreddit")
-                private String subReddit;
-                @SerializedName("title")
-                private String title;
-                @SerializedName("score")
-                private int score;
-                @SerializedName("domain")
-                private String domain;
-                @SerializedName("id")
-                private String id;
-                @SerializedName("num_comments")
-                private int numComments;
-                @SerializedName("url")
-                private String url;
-
-                public String getSubReddit() {
-                    return subReddit;
-                }
-
-                public void setSubReddit(String subReddit) {
-                    this.subReddit = subReddit;
-                }
-
-                public String getTitle() {
-                    return title;
-                }
-
-                public void setTitle(String title) {
-                    this.title = title;
-                }
-
-                public int getScore() {
-                    return score;
-                }
-
-                public void setScore(int score) {
-                    this.score = score;
-                }
-
-                public String getDomain() {
-                    return domain;
-                }
-
-                public void setDomain(String domain) {
-                    this.domain = domain;
-                }
-
-                public String getId() {
-                    return id;
-                }
-
-                public void setId(String id) {
-                    this.id = id;
-                }
-
-                public int getNumComments() {
-                    return numComments;
-                }
-
-                public void setNumComments(int numComments) {
-                    this.numComments = numComments;
-                }
-
-                public String getUrl() {
-                    return url;
-                }
-
-                public void setUrl(String url) {
-                    this.url = url;
-                }
-            }
+        public void setCategoryDefaultKey(String categoryDefaultKey) {
+            this.categoryDefaultKey = categoryDefaultKey;
         }
     }
 }

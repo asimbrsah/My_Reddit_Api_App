@@ -8,7 +8,6 @@ import javax.inject.Singleton;
 
 import io.reactivex.Single;
 
-@Singleton
 public class CategoryRemoteDataProvider implements CategorySourceProvider {
 
     private RedditApi redditApi;
@@ -19,7 +18,10 @@ public class CategoryRemoteDataProvider implements CategorySourceProvider {
     }
 
     @Override
-    public Single<CategoryResponseModel> getCategoryData(String categoryName) {
-        return redditApi.getCategoryData(categoryName);
+    public Single<CategoryResponseModel> getCategoryData(String categoryName,
+                                                         String limit,
+                                                         String afterKey,
+                                                         String count) {
+        return redditApi.getCategoryData(categoryName, limit, afterKey, count);
     }
 }

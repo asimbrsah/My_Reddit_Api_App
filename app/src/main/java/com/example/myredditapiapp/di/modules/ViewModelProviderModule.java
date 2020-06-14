@@ -5,9 +5,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myredditapiapp.di.scope.ViewModelKey;
 import com.example.myredditapiapp.factory.ViewModelProviderFactory;
+import com.example.myredditapiapp.presentation.main.MainViewModel;
+import com.example.myredditapiapp.presentation.main.category.CategoryViewModel;
 import com.example.myredditapiapp.presentation.launcher.LauncherViewModel;
-import com.example.myredditapiapp.presentation.launcher.category.CategoryViewModel;
-import com.example.myredditapiapp.presentation.splash.SplashViewModel;
 
 import dagger.Binds;
 import dagger.Module;
@@ -21,13 +21,13 @@ public abstract class ViewModelProviderModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(SplashViewModel.class)
-    public abstract ViewModel bindSplashViewModel(SplashViewModel splashViewModel);
+    @ViewModelKey(LauncherViewModel.class)
+    public abstract ViewModel bindSplashViewModel(LauncherViewModel launcherViewModel);
 
     @Binds
     @IntoMap
-    @ViewModelKey(LauncherViewModel.class)
-    public abstract ViewModel bindLauncherViewModel(LauncherViewModel launcherViewModel);
+    @ViewModelKey(MainViewModel.class)
+    public abstract ViewModel bindLauncherViewModel(MainViewModel mainViewModel);
 
     @Binds
     @IntoMap

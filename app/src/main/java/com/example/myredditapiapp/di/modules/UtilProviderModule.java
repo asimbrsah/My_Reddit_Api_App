@@ -9,6 +9,7 @@ import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.myredditapiapp.R;
 import com.example.myredditapiapp.utils.NetworkUtil;
+import com.google.android.exoplayer2.SimpleExoPlayer;
 
 import javax.inject.Singleton;
 
@@ -22,7 +23,7 @@ public class UtilProviderModule {
     @Provides
     static RequestOptions provideRequestOptions() {
         return RequestOptions
-                .placeholderOf(R.drawable.ic_logo)
+                .placeholderOf(R.drawable.ic_refresh_24dp)
                 .error(R.drawable.ic_logo);
     }
 
@@ -43,5 +44,11 @@ public class UtilProviderModule {
     @Provides
     NetworkUtil provideNetworkUtil(ConnectivityManager connectivityManager) {
         return new NetworkUtil(connectivityManager);
+    }
+
+    @Singleton
+    @Provides
+    SimpleExoPlayer provideSimpleExoPlayer(Application application) {
+        return new SimpleExoPlayer.Builder(application).build();
     }
 }

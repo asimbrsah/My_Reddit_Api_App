@@ -54,7 +54,7 @@ public class RestApiProviderModule {
 
     @Singleton
     @Provides
-    static Retrofit provideRetrofitInstance(Gson gson, OkHttpClient okHttpClient) {
+    Retrofit provideRetrofitInstance(Gson gson, OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
                 .baseUrl(BuildConfig.BASE_URL)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -65,7 +65,7 @@ public class RestApiProviderModule {
 
     @Singleton
     @Provides
-    static RedditApi provideRestApi(Retrofit retrofit) {
+    RedditApi provideRestApi(Retrofit retrofit) {
         return retrofit.create(RedditApi.class);
     }
 }

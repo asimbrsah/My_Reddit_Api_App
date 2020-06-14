@@ -23,7 +23,10 @@ public class CategoryRepository implements CategorySourceProvider {
     }
 
     @Override
-    public Single<CategoryResponseModel> getCategoryData(String categoryName) {
-        return categoryRemoteDataProvider.getCategoryData(categoryName);
+    public Single<CategoryResponseModel> getCategoryData(String categoryName,
+                                                         String limit,
+                                                         String afterKey,
+                                                         String count) {
+        return categoryRemoteDataProvider.getCategoryData(categoryName, limit, afterKey, count);
     }
 }

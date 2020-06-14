@@ -2,168 +2,138 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cat_lyt"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/_8dp"
-    android:layout_marginEnd="@dimen/_8dp"
     android:layout_marginBottom="@dimen/_8dp"
-    android:background="@drawable/ic_pure_white_rounded_corner"
-    android:padding="@dimen/_8dp">
-
-    <ImageView
-        android:id="@+id/img_brand"
-        android:layout_width="@dimen/_25dp"
-        android:layout_height="@dimen/_25dp"
-        android:scaleType="centerInside"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription"
-        tools:src="@drawable/ic_logo" />
+    android:background="@color/pure_white"
+    android:paddingTop="@dimen/_8dp">
 
     <TextView
         android:id="@+id/tv_header"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_8dp"
+        android:drawableStart="@drawable/ic_baseline_language_24"
+        android:drawablePadding="@dimen/_4dp"
         android:gravity="bottom"
-        android:textColor="@color/colorAccent"
-        android:textSize="@dimen/_12sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/img_brand"
-        app:layout_constraintStart_toEndOf="@+id/img_brand"
-        app:layout_constraintTop_toTopOf="@+id/img_brand"
+        android:textColor="@color/pure_black"
+        android:textSize="@dimen/_14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="Seatle police" />
-
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/pure_black"
-        android:textSize="@dimen/_18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_brand"
-        tools:text="Settle police officers were recently filmed running into a pedestain." />
-
-    <TextView
-        android:id="@+id/tv_sub_reddit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_8dp"
-        android:background="@drawable/ic_lightest_grey_rounded_corner"
-        android:padding="@dimen/_4dp"
-        android:textColor="@color/pure_black"
-        android:textSize="@dimen/_12sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_title"
-        tools:text="AskReddit" />
 
     <TextView
         android:id="@+id/tv_domain"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/_8dp"
-        android:gravity="bottom"
-        android:textColor="@color/pure_black"
+        android:gravity="center"
+        android:textColor="@color/colorAccent"
         android:textSize="@dimen/_12sp"
-        app:layout_constraintBottom_toBottomOf="@id/tv_sub_reddit"
-        app:layout_constraintStart_toEndOf="@id/tv_sub_reddit"
-        app:layout_constraintTop_toTopOf="@id/tv_sub_reddit"
+        app:layout_constraintBottom_toBottomOf="@id/tv_header"
+        app:layout_constraintStart_toEndOf="@id/tv_header"
+        app:layout_constraintTop_toTopOf="@id/tv_header"
         tools:text="reddit.com" />
 
     <TextView
-        android:id="@+id/tv_score"
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8dp"
+        android:layout_marginTop="@dimen/_8dp"
+        android:layout_marginEnd="@dimen/_8dp"
+        android:lineSpacingExtra="@dimen/_4sp"
+        android:textColor="@color/pure_black"
+        android:textSize="@dimen/_16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_header"
+        tools:text="Settle police officers were recently filmed running into a pedestain." />
+
+    <FrameLayout
+        android:id="@+id/media_container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_8dp"
-        android:gravity="center"
-        android:textColor="@color/pure_black"
-        android:textSize="@dimen/_20sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_domain"
-        tools:text="5267 k" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_title">
 
-    <TextView
-        android:id="@+id/tv_comment"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="@dimen/_8dp"
-        android:gravity="center"
-        android:textColor="@color/light_grey"
-        android:textSize="@dimen/_16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_score"
-        app:layout_constraintStart_toEndOf="@id/tv_score"
-        app:layout_constraintTop_toTopOf="@id/tv_score"
-        tools:text="5267 comments" />
+        <com.example.myredditapiapp.widgets.ResizableImageView
+            android:id="@+id/img_thumbnail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:visibility="gone"
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/ic_launcher_foreground"
+            tools:visibility="visible" />
 
-    <ImageView
-        android:id="@+id/img_thumbnail"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="@dimen/_8dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_logo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_score"
-        tools:ignore="ContentDescription" />
+        <com.google.android.exoplayer2.ui.PlayerView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            tools:ignore="ContentDescription"
+            tools:visibility="visible" />
+
+        <include
+            android:id="@+id/include_circular_progress_bar"
+            layout="@layout/include_circular_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/volume_control"
+            android:layout_width="@dimen/_24dp"
+            android:layout_height="@dimen/_24dp"
+            android:layout_gravity="end|bottom"
+            android:layout_marginEnd="@dimen/_16dp"
+            android:layout_marginBottom="@dimen/_16dp"
+            android:src="@drawable/ic_volume_off_light_grey_24dp"
+            android:visibility="gone"
+            tools:ignore="ContentDescription"
+            tools:visibility="visible" />
+
+    </FrameLayout>
 
     <LinearLayout
+        android:id="@+id/lyt_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_16dp"
+        android:layout_marginStart="@dimen/_8dp"
+        android:layout_marginTop="@dimen/_8dp"
+        android:layout_marginEnd="@dimen/_8dp"
+        android:gravity="center"
         android:orientation="horizontal"
-        android:weightSum="5"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="@dimen/_8dp"
+        android:weightSum="2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/img_thumbnail">
+        app:layout_constraintTop_toBottomOf="@+id/media_container">
 
-        <ImageView
-            android:id="@+id/img_up_arrow"
+        <TextView
+            android:id="@+id/tv_score"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_30dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center|start"
             android:layout_weight="1"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_baseline_arrow_upward_24"
-            tools:ignore="ContentDescription" />
+            android:drawableStart="@drawable/ic_baseline_star_24"
+            android:drawablePadding="@dimen/_8dp"
+            android:gravity="center|start"
+            tools:text="5267 k" />
 
-        <ImageView
-            android:id="@+id/img_down_arrow"
+        <TextView
+            android:id="@+id/tv_comment"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_30dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_baseline_arrow_downward_24"
-            tools:ignore="ContentDescription" />
-
-        <ImageView
-            android:id="@+id/img_star"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_30dp"
-            android:layout_weight="1"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_baseline_star_24"
-            tools:ignore="ContentDescription" />
-
-        <ImageView
-            android:id="@+id/img_comment"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_30dp"
-            android:layout_weight="1"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_baseline_comment_24"
-            tools:ignore="ContentDescription" />
-
-        <ImageView
-            android:id="@+id/img_share"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_30dp"
-            android:layout_weight="1"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_baseline_share_24"
-            tools:ignore="ContentDescription" />
+            android:drawableStart="@drawable/ic_baseline_comment_24"
+            android:drawablePadding="@dimen/_8dp"
+            android:gravity="center|start"
+            tools:text="5267 comments" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

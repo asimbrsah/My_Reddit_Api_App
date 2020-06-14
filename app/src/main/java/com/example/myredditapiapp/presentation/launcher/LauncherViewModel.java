@@ -5,22 +5,31 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.myredditapiapp.base.BaseViewModel;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.inject.Inject;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class LauncherViewModel extends BaseViewModel {
 
-    private MutableLiveData<String> transactionMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<Boolean> launchApplication = new MutableLiveData<>();
 
     @Inject
     LauncherViewModel() {
 
     }
 
-    void setTransaction(String categoryName) {
-        transactionMutableLiveData.setValue(categoryName);
+    void launchApplication() {
+        setCompositeDisposable(Observable.timer(1, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(aLong -> launchApplication.setValue(true)));
     }
 
-    LiveData<String> getTransactionMutableLiveData() {
-        return transactionMutableLiveData;
+    LiveData<Boolean> getLaunchApplication() {
+        return launchApplication;
     }
 }

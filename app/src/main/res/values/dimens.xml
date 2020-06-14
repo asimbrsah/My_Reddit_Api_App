@@ -2,6 +2,7 @@
 <resources>
 
     //density pixel
+    <dimen name="_2dp">2dp</dimen>
     <dimen name="_4dp">4dp</dimen>
     <dimen name="_5dp">5dp</dimen>
     <dimen name="_6dp">6dp</dimen>
@@ -32,6 +33,7 @@
     <dimen name="_8sp">8sp</dimen>
     <dimen name="_10sp">10sp</dimen>
     <dimen name="_12sp">12sp</dimen>
+    <dimen name="_14sp">14sp</dimen>
     <dimen name="_15sp">15sp</dimen>
     <dimen name="_16sp">16sp</dimen>
     <dimen name="_18sp">18sp</dimen>
