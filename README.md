@@ -32,5 +32,3 @@
 - https://proandroiddev.com/exploring-rxjava-in-android-e52ed7ef32e2
 - https://medium.com/@harivigneshjayapalan/dagger-2-for-android-beginners-dagger-2-part-i-f2de5564ab25
 - https://www.youtube.com/watch?v=3qZh6Fyrz-k&list=PLgCYzUzKIBE8AOAspC3DHoBNZIBHbIOsC
-
----------- ### LOT MORE TO COME ----------
