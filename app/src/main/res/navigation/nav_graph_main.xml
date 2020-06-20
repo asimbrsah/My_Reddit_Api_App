@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_main"
+    app:startDestination="@id/category_all">
+
+    <fragment
+        android:id="@+id/category_all"
+        android:name="com.example.myredditapiapp.presentation.main.category.CategoryFragment"
+        android:label="All"
+        tools:layout="@layout/fragment_category">
+        <argument
+            android:name="category_name"
+            android:defaultValue="All"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/category_popular"
+        android:name="com.example.myredditapiapp.presentation.main.category.CategoryFragment"
+        android:label="Popular"
+        tools:layout="@layout/fragment_category">
+        <argument
+            android:name="category_name"
+            android:defaultValue="Popular"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/category_science"
+        android:name="com.example.myredditapiapp.presentation.main.category.CategoryFragment"
+        android:label="Science"
+        tools:layout="@layout/fragment_category">
+        <argument
+            android:name="category_name"
+            android:defaultValue="Science"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/category_art"
+        android:name="com.example.myredditapiapp.presentation.main.category.CategoryFragment"
+        android:label="Art"
+        tools:layout="@layout/fragment_category">
+        <argument
+            android:name="category_name"
+            android:defaultValue="Art"
+            app:argType="string" />
+    </fragment>
+</navigation>

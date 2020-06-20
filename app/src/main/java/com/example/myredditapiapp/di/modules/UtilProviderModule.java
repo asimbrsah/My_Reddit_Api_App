@@ -4,10 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.net.ConnectivityManager;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestManager;
-import com.bumptech.glide.request.RequestOptions;
-import com.example.myredditapiapp.R;
 import com.example.myredditapiapp.utils.NetworkUtil;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 
@@ -18,21 +14,6 @@ import dagger.Provides;
 
 @Module
 public class UtilProviderModule {
-
-    @Singleton
-    @Provides
-    static RequestOptions provideRequestOptions() {
-        return RequestOptions
-                .placeholderOf(R.drawable.ic_refresh_24dp)
-                .error(R.drawable.ic_logo);
-    }
-
-    @Singleton
-    @Provides
-    static RequestManager provideRequestManager(Application application, RequestOptions requestOptions) {
-        return Glide.with(application)
-                .setDefaultRequestOptions(requestOptions);
-    }
 
     @Singleton
     @Provides

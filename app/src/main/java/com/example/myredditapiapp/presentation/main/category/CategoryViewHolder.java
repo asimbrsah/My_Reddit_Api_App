@@ -72,7 +72,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
         tvScore.setText(childrenResponseModel != null &&
                 childrenResponseModel.getChildrenData() != null &&
                 childrenResponseModel.getChildrenData().getScore() > 0 ?
-                NumberCountUtil.format(childrenResponseModel.getChildrenData().getScore()) : "");
+                String.format("%s likes", NumberCountUtil.format(childrenResponseModel.getChildrenData().getScore())) : "");
 
         tvComment.setText(childrenResponseModel != null &&
                 childrenResponseModel.getChildrenData() != null &&

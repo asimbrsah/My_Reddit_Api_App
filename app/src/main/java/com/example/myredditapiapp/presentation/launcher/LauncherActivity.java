@@ -5,8 +5,8 @@ import android.os.Bundle;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myredditapiapp.Navigator;
-import com.example.myredditapiapp.R;
 import com.example.myredditapiapp.base.BaseActivity;
+import com.example.myredditapiapp.databinding.ActivityLauncherBinding;
 
 public class LauncherActivity extends BaseActivity {
 
@@ -15,7 +15,8 @@ public class LauncherActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_launcher);
+        ActivityLauncherBinding activityLauncherBinding = ActivityLauncherBinding.inflate(getLayoutInflater());
+        setContentView(activityLauncherBinding.getRoot());
 
         launcherViewModel = new ViewModelProvider(this, getViewModelProviderFactory()).get(LauncherViewModel.class);
 

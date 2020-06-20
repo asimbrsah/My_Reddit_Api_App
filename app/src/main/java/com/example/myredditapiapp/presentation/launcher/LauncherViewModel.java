@@ -23,7 +23,7 @@ public class LauncherViewModel extends BaseViewModel {
     }
 
     void launchApplication() {
-        setCompositeDisposable(Observable.timer(1, TimeUnit.SECONDS)
+        setCompositeDisposable(Observable.timer(500, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aLong -> launchApplication.setValue(true)));

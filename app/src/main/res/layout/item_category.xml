@@ -1,139 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/_8dp"
-    android:background="@color/pure_white"
-    android:paddingTop="@dimen/_8dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/tv_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_8dp"
-        android:drawableStart="@drawable/ic_baseline_language_24"
-        android:drawablePadding="@dimen/_4dp"
-        android:gravity="bottom"
-        android:textColor="@color/pure_black"
-        android:textSize="@dimen/_14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Seatle police" />
+    <data>
 
-    <TextView
-        android:id="@+id/tv_domain"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="@dimen/_8dp"
-        android:gravity="center"
-        android:textColor="@color/colorAccent"
-        android:textSize="@dimen/_12sp"
-        app:layout_constraintBottom_toBottomOf="@id/tv_header"
-        app:layout_constraintStart_toEndOf="@id/tv_header"
-        app:layout_constraintTop_toTopOf="@id/tv_header"
-        tools:text="reddit.com" />
+    </data>
 
-    <TextView
-        android:id="@+id/tv_title"
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_8dp"
-        android:layout_marginTop="@dimen/_8dp"
-        android:layout_marginEnd="@dimen/_8dp"
-        android:lineSpacingExtra="@dimen/_4sp"
-        android:textColor="@color/pure_black"
-        android:textSize="@dimen/_16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_header"
-        tools:text="Settle police officers were recently filmed running into a pedestain." />
+        app:cardElevation="@dimen/_8dp">
 
-    <FrameLayout
-        android:id="@+id/media_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title">
-
-        <com.example.myredditapiapp.widgets.ResizableImageView
-            android:id="@+id/img_thumbnail"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scaleType="fitXY"
-            android:visibility="gone"
-            tools:ignore="ContentDescription"
-            tools:src="@drawable/ic_launcher_foreground"
-            tools:visibility="visible" />
+            android:background="@color/pure_white"
+            android:paddingTop="@dimen/_4dp">
 
-        <com.google.android.exoplayer2.ui.PlayerView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="gone"
-            tools:ignore="ContentDescription"
-            tools:visibility="visible" />
+            <TextView
+                android:id="@+id/tv_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8dp"
+                android:gravity="bottom"
+                android:textColor="@color/pure_black"
+                android:textSize="@dimen/_16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Seatle police" />
 
-        <include
-            android:id="@+id/include_circular_progress_bar"
-            layout="@layout/include_circular_progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="gone"
-            tools:visibility="visible" />
+            <TextView
+                android:id="@+id/tv_domain"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/_8dp"
+                android:drawableStart="@drawable/ic_timer_24dp"
+                android:drawablePadding="@dimen/_4dp"
+                android:gravity="center"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/_14sp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_header"
+                app:layout_constraintStart_toEndOf="@id/tv_header"
+                app:layout_constraintTop_toTopOf="@id/tv_header"
+                tools:text="reddit.com" />
 
-        <ImageView
-            android:id="@+id/volume_control"
-            android:layout_width="@dimen/_24dp"
-            android:layout_height="@dimen/_24dp"
-            android:layout_gravity="end|bottom"
-            android:layout_marginEnd="@dimen/_16dp"
-            android:layout_marginBottom="@dimen/_16dp"
-            android:src="@drawable/ic_volume_off_light_grey_24dp"
-            android:visibility="gone"
-            tools:ignore="ContentDescription"
-            tools:visibility="visible" />
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8dp"
+                android:layout_marginTop="@dimen/_8dp"
+                android:layout_marginEnd="@dimen/_8dp"
+                android:lineSpacingExtra="@dimen/_4sp"
+                android:textSize="@dimen/_14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_header"
+                tools:text="Settle police officers were recently filmed running into a pedestain." />
 
-    </FrameLayout>
+            <FrameLayout
+                android:id="@+id/media_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title">
 
-    <LinearLayout
-        android:id="@+id/lyt_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_8dp"
-        android:layout_marginTop="@dimen/_8dp"
-        android:layout_marginEnd="@dimen/_8dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="@dimen/_8dp"
-        android:weightSum="2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/media_container">
+                <com.example.myredditapiapp.widgets.ResizableImageView
+                    android:id="@+id/img_thumbnail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    android:visibility="invisible"
+                    tools:ignore="ContentDescription"
+                    tools:src="@drawable/ic_white_background_100dp"
+                    tools:visibility="visible" />
 
-        <TextView
-            android:id="@+id/tv_score"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center|start"
-            android:layout_weight="1"
-            android:drawableStart="@drawable/ic_baseline_star_24"
-            android:drawablePadding="@dimen/_8dp"
-            android:gravity="center|start"
-            tools:text="5267 k" />
+                <com.google.android.exoplayer2.ui.PlayerView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    tools:ignore="ContentDescription"
+                    tools:visibility="visible" />
 
-        <TextView
-            android:id="@+id/tv_comment"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:drawableStart="@drawable/ic_baseline_comment_24"
-            android:drawablePadding="@dimen/_8dp"
-            android:gravity="center|start"
-            tools:text="5267 comments" />
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <include
+                    android:id="@+id/include_circular_progress_bar"
+                    layout="@layout/lyt_circular_progress_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+                <ImageView
+                    android:id="@+id/volume_control"
+                    android:layout_width="@dimen/_24dp"
+                    android:layout_height="@dimen/_24dp"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginEnd="@dimen/_16dp"
+                    android:layout_marginBottom="@dimen/_16dp"
+                    android:src="@drawable/ic_volume_off_light_grey_24dp"
+                    android:visibility="gone"
+                    tools:ignore="ContentDescription"
+                    tools:visibility="visible" />
+
+            </FrameLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/lyt_bottom"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:cardElevation="@dimen/_8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/media_container">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|start"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_8dp"
+                    android:weightSum="3">
+
+                    <TextView
+                        android:id="@+id/tv_score"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_like_16dp"
+                        android:drawablePadding="@dimen/_4dp"
+                        android:gravity="center"
+                        android:textSize="@dimen/_14sp"
+                        tools:text="1,234 k likes" />
+
+                    <TextView
+                        android:id="@+id/tv_comment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16dp"
+                        android:textSize="@dimen/_14sp"
+                        tools:text="1,234 k comments" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_8dp"
+                android:background="@color/space_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lyt_bottom" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

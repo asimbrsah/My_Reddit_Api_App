@@ -2,7 +2,7 @@ package com.example.myredditapiapp.di.modules;
 
 import android.app.Application;
 
-import com.example.myredditapiapp.BuildConfig;
+import com.example.myredditapiapp.Constants;
 import com.example.myredditapiapp.data.source.remote.RedditApi;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -33,7 +33,7 @@ public class RestApiProviderModule {
     @Provides
     OkHttpClient provideOkHttpClient(Cache cache) {
         OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
-        if (BuildConfig.DEBUG) {
+        if (Constants.DEBUG) {
             // apply interceptor logic on top of the network layer (ex: setting token, localization etc...)
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
             logging.level(HttpLoggingInterceptor.Level.BODY);
@@ -56,7 +56,7 @@ public class RestApiProviderModule {
     @Provides
     Retrofit provideRetrofitInstance(Gson gson, OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
-                .baseUrl(BuildConfig.BASE_URL)
+                .baseUrl(Constants.BASE_URL)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okHttpClient)

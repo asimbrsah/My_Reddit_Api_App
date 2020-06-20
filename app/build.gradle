@@ -5,6 +5,9 @@
  */
 apply plugin: 'com.android.application'
 
+// Safe Args for navigation component
+apply plugin: "androidx.navigation.safeargs"
+
 /**Loading store property file */
 def storePropertiesFile = rootProject.file("store.properties")
 def storeProperties = new Properties()
@@ -86,6 +89,7 @@ android {
             buildConfigField("String", "DEFAULT_CATEGORY_KEY_VALUE", "\"${storeProperties['default_category_key_value']}\"")
             buildConfigField("String", "ALL_CATEGORY_END_POINT_URL", "\"${storeProperties['all_category_end_point_url']}\"")
             buildConfigField("String", "POPULAR_CATEGORY_END_POINT_URL", "\"${storeProperties['popular_category_end_point_url']}\"")
+            buildConfigField("String", "SCIENCE_CATEGORY_END_POINT_URL", "\"${storeProperties['science_category_end_point_url']}\"")
             buildConfigField("String", "ART_CATEGORY_END_POINT_URL", "\"${storeProperties['art_category_end_point_url']}\"")
 
             // Constants values
@@ -107,6 +111,7 @@ android {
             buildConfigField("String", "DEFAULT_CATEGORY_KEY_VALUE", "\"${storeProperties['default_category_key_value']}\"")
             buildConfigField("String", "ALL_CATEGORY_END_POINT_URL", "\"${storeProperties['all_category_end_point_url']}\"")
             buildConfigField("String", "POPULAR_CATEGORY_END_POINT_URL", "\"${storeProperties['popular_category_end_point_url']}\"")
+            buildConfigField("String", "SCIENCE_CATEGORY_END_POINT_URL", "\"${storeProperties['science_category_end_point_url']}\"")
             buildConfigField("String", "ART_CATEGORY_END_POINT_URL", "\"${storeProperties['art_category_end_point_url']}\"")
 
             // Constants values
@@ -129,6 +134,7 @@ android {
             buildConfigField("String", "DEFAULT_CATEGORY_KEY_VALUE", "\"${storeProperties['default_category_key_value']}\"")
             buildConfigField("String", "ALL_CATEGORY_END_POINT_URL", "\"${storeProperties['all_category_end_point_url']}\"")
             buildConfigField("String", "POPULAR_CATEGORY_END_POINT_URL", "\"${storeProperties['popular_category_end_point_url']}\"")
+            buildConfigField("String", "SCIENCE_CATEGORY_END_POINT_URL", "\"${storeProperties['science_category_end_point_url']}\"")
             buildConfigField("String", "ART_CATEGORY_END_POINT_URL", "\"${storeProperties['art_category_end_point_url']}\"")
 
             // Constants values
@@ -137,6 +143,11 @@ android {
             buildConfigField("String", "RECYCLER_VIEW_DEFAULT_ITEM_LIMIT", "\"${storeProperties['recycler_view_default_item_limit']}\"")
             buildConfigField("String", "RECYCLER_VIEW_DEFAULT_ITEM_COUNT", "\"${storeProperties['recycler_view_default_item_count']}\"")
         }
+    }
+
+    // Data binding
+    buildFeatures {
+        dataBinding true
     }
 
     // Using Java 8
@@ -164,6 +175,10 @@ dependencies {
 
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:${rootProject.ext.liveDataVer}"
+
+    // Navigation component
+    implementation "androidx.navigation:navigation-fragment:${rootProject.ext.navComponentVer}"
+    implementation "androidx.navigation:navigation-ui:${rootProject.ext.navComponentVer}"
 
     // Dagger
     implementation "com.google.dagger:dagger:${rootProject.ext.daggerVer}"

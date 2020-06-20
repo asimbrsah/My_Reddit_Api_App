@@ -10,8 +10,10 @@
     <color name="orange">#F06423</color>
 
     // Other color used in app
-    <color name="pure_white">#FFFFFF</color>
-    <color name="pure_black">#000000</color>
-    <color name="light_grey">#757575</color>
+    <color name="pure_white">@android:color/white</color>
+    <color name="pure_black">@android:color/black</color>
+
+    <color name="light_grey">#ff757575</color>
     <color name="lightest_grey">#BDBDBD</color>
+    <color name="space_grey">#80ffffff</color>
 </resources>

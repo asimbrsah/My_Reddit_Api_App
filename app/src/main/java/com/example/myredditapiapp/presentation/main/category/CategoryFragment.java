@@ -5,41 +5,36 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.example.myredditapiapp.BuildConfig;
+import com.example.myredditapiapp.Constants;
 import com.example.myredditapiapp.R;
 import com.example.myredditapiapp.base.BaseFragment;
+import com.example.myredditapiapp.databinding.FragmentCategoryBinding;
 import com.example.myredditapiapp.di.modules.GlideApp;
-import com.example.myredditapiapp.presentation.main.MainViewModel;
 import com.example.myredditapiapp.utils.UserMessageUtil;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
-import java.util.Objects;
 
 import javax.inject.Inject;
 
-public class CategoryFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+public class CategoryFragment extends BaseFragment {
 
-    private RecyclerView categoryRecycler;
-    private ProgressBar horizontalProgressBar;
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private ProgressBar circularProgressBar;
+    private FragmentCategoryBinding fragmentcategoryBinding;
 
-    private String categoryName;
     private CategoryAdapter categoryAdapter;
-
-    private MainViewModel mainViewModel;
     private CategoryViewModel categoryViewModel;
 
+    private String categoryName = "";
     private String defaultCategoryKey = "";
     private boolean loading = false;
     private int visibleItemCount, pastVisibleItemCount, totalItemCount;
@@ -47,44 +42,42 @@ public class CategoryFragment extends BaseFragment implements SwipeRefreshLayout
     @Inject
     SimpleExoPlayer simpleExoPlayer;
 
-    public static CategoryFragment newInstance(String categoryName) {
-        CategoryFragment categoryFragment = new CategoryFragment();
-        Bundle args = new Bundle();
-        args.putString("category_name", categoryName);
-        categoryFragment.setArguments(args);
-        return categoryFragment;
-    }
-
+    private boolean isScrolled = false;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            categoryName = getArguments().getString("category_name");
-        }
+        categoryName = requireArguments().getString("category_name");
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_category, container, false);
-        categoryRecycler = view.findViewById(R.id.recycler_category);
-        horizontalProgressBar = view.findViewById(R.id.include_horizontal_progress_bar);
-        circularProgressBar = view.findViewById(R.id.include_circular_progress_bar);
-        swipeRefreshLayout = view.findViewById(R.id.swipe_lyt);
-        swipeRefreshLayout.setOnRefreshListener(this);
-        return view;
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        fragmentcategoryBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_category, container, false);
+        return fragmentcategoryBinding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setUpRecyclerView(categoryRecycler);
+
+        setUpRecyclerView(fragmentcategoryBinding.recyclerCategory);
+
+        fragmentcategoryBinding.swipeLyt.setOnRefreshListener(() -> {
+            isScrolled = false;
+            fragmentcategoryBinding.swipeLyt.setRefreshing(false);
+            if (categoryName != null && !categoryName.isEmpty()) {
+                categoryViewModel.loadCategoryData(categoryName,
+                        Constants.RECYCLER_VIEW_DEFAULT_ITEM_LIMIT,
+                        Constants.DEFAULT_CATEGORY_KEY_VALUE,
+                        Constants.RECYCLER_VIEW_DEFAULT_ITEM_COUNT);
+            }
+        });
     }
 
     private void setUpRecyclerView(RecyclerView categoryRecycler) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         categoryRecycler.setLayoutManager(linearLayoutManager);
-        categoryAdapter = new CategoryAdapter(getActivity(), new ArrayList<>(), GlideApp.with(Objects.requireNonNull(getContext())), simpleExoPlayer);
+        categoryAdapter = new CategoryAdapter(getActivity(), new ArrayList<>(), GlideApp.with(requireContext()), simpleExoPlayer);
         categoryRecycler.setAdapter(categoryAdapter);
 
         categoryRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -107,11 +100,14 @@ public class CategoryFragment extends BaseFragment implements SwipeRefreshLayout
 
                     if (loading && (visibleItemCount + pastVisibleItemCount) >= totalItemCount) {
                         loading = false;
-                        circularProgressBar.setVisibility(View.VISIBLE);
-                        categoryViewModel.loadCategoryData(categoryName,
-                                BuildConfig.RECYCLER_VIEW_DEFAULT_ITEM_LIMIT,
-                                defaultCategoryKey,
-                                BuildConfig.RECYCLER_VIEW_DEFAULT_ITEM_COUNT);
+                        isScrolled = true;
+                        fragmentcategoryBinding.lytCircularProgressBar.circularProgressBar.setVisibility(View.VISIBLE);
+                        if (categoryName != null && !categoryName.isEmpty()) {
+                            categoryViewModel.loadCategoryData(categoryName,
+                                    Constants.RECYCLER_VIEW_DEFAULT_ITEM_LIMIT,
+                                    defaultCategoryKey,
+                                    Constants.RECYCLER_VIEW_DEFAULT_ITEM_COUNT);
+                        }
                     }
                 }
             }
@@ -122,14 +118,13 @@ public class CategoryFragment extends BaseFragment implements SwipeRefreshLayout
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
         categoryViewModel = new ViewModelProvider(this, getViewModelProviderFactory()).get(CategoryViewModel.class);
 
-        if (categoryName != null) {
+        if (categoryName != null && !categoryName.isEmpty()) {
             categoryViewModel.loadCategoryData(categoryName,
-                    BuildConfig.RECYCLER_VIEW_DEFAULT_ITEM_LIMIT,
-                    BuildConfig.DEFAULT_CATEGORY_KEY_VALUE,
-                    BuildConfig.RECYCLER_VIEW_DEFAULT_ITEM_COUNT);
+                    Constants.RECYCLER_VIEW_DEFAULT_ITEM_LIMIT,
+                    Constants.DEFAULT_CATEGORY_KEY_VALUE,
+                    Constants.RECYCLER_VIEW_DEFAULT_ITEM_COUNT);
         }
 
         observeInternetAvailable();
@@ -150,15 +145,15 @@ public class CategoryFragment extends BaseFragment implements SwipeRefreshLayout
         categoryViewModel.getLoading().observe(getViewLifecycleOwner(), loading -> {
             if (loading != null) {
                 if (loading) {
-                    horizontalProgressBar.setIndeterminate(true);
-                    horizontalProgressBar.setVisibility(View.VISIBLE);
+                    fragmentcategoryBinding.lytHorizontalProgressBar.horizontalProgressBar.setIndeterminate(true);
+                    fragmentcategoryBinding.lytHorizontalProgressBar.horizontalProgressBar.setVisibility(View.VISIBLE);
                 } else {
-                    horizontalProgressBar.setIndeterminate(false);
-                    horizontalProgressBar.setVisibility(View.GONE);
-                    if (swipeRefreshLayout.isRefreshing()) {
-                        swipeRefreshLayout.setRefreshing(false);
+                    fragmentcategoryBinding.lytHorizontalProgressBar.horizontalProgressBar.setIndeterminate(false);
+                    fragmentcategoryBinding.lytHorizontalProgressBar.horizontalProgressBar.setVisibility(View.GONE);
+                    if (fragmentcategoryBinding.swipeLyt.isRefreshing()) {
+                        fragmentcategoryBinding.swipeLyt.setRefreshing(false);
                     }
-                    circularProgressBar.setVisibility(View.GONE);
+                    fragmentcategoryBinding.lytCircularProgressBar.circularProgressBar.setVisibility(View.GONE);
                 }
             }
         });
@@ -169,8 +164,12 @@ public class CategoryFragment extends BaseFragment implements SwipeRefreshLayout
             if (categoryModel != null) {
                 defaultCategoryKey = categoryModel.getData().getCategoryDefaultKey() != null ?
                         categoryModel.getData().getCategoryDefaultKey() : "";
-                categoryAdapter.setCategoryData(categoryModel.getData().getChildren());
-                categoryRecycler.setVisibility(View.VISIBLE);
+                fragmentcategoryBinding.recyclerCategory.setVisibility(View.VISIBLE);
+                if (isScrolled) {
+                    categoryAdapter.updateCategoryData(categoryModel.getData().getChildren());
+                } else {
+                    categoryAdapter.setCategoryData(categoryModel.getData().getChildren());
+                }
             }
         });
     }
@@ -181,14 +180,5 @@ public class CategoryFragment extends BaseFragment implements SwipeRefreshLayout
                 UserMessageUtil.showLongToastMessage(getContext(), remoteError);
             }
         });
-    }
-
-    @Override
-    public void onRefresh() {
-        swipeRefreshLayout.setRefreshing(false);
-        categoryViewModel.loadCategoryData(categoryName,
-                BuildConfig.RECYCLER_VIEW_DEFAULT_ITEM_LIMIT,
-                BuildConfig.DEFAULT_CATEGORY_KEY_VALUE,
-                BuildConfig.RECYCLER_VIEW_DEFAULT_ITEM_COUNT);
     }
 }

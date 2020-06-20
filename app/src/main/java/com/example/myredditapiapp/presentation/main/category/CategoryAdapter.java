@@ -48,7 +48,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
         return childrenResponseModelList.size();
     }
 
+    void updateCategoryData(List<ChildrenResponseModel> childrenResponseModelList) {
+        this.childrenResponseModelList.addAll(childrenResponseModelList);
+        notifyDataSetChanged();
+    }
+
     void setCategoryData(List<ChildrenResponseModel> childrenResponseModelList) {
+        if (this.childrenResponseModelList.size() > 0) {
+            this.childrenResponseModelList.clear();
+        }
         this.childrenResponseModelList.addAll(childrenResponseModelList);
         notifyDataSetChanged();
     }

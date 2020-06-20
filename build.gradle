@@ -30,6 +30,7 @@ buildscript {
      */
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.0'
+        classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.2.2'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -77,11 +78,11 @@ ext {
     // MultiDex ver
     multidexVer = "2.0.1"
 
-    // Navigation
-    navigationVer = "2.2.2"
-
     // ViewModel
     liveDataVer = "2.2.0"
+
+    // Navigation component
+    navComponentVer = "2.2.2"
 
     // Dagger
     daggerVer = "2.25.4"

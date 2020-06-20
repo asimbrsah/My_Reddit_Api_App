@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/category_all"
+        android:icon="@drawable/ic_category_all_24dp"
+        android:title="@string/all_text" />
+    <item
+        android:id="@+id/category_popular"
+        android:icon="@drawable/ic_category_popular_24dp"
+        android:title="@string/popular_text" />
+    <item
+        android:id="@+id/category_science"
+        android:icon="@drawable/ic_category_science_24dp"
+        android:title="@string/science_text" />
+    <item
+        android:id="@+id/category_art"
+        android:icon="@drawable/ic_category_art_24dp"
+        android:title="@string/art_text" />
+</menu>

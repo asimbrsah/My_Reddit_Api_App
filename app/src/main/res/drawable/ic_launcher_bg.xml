@@ -6,10 +6,6 @@
         </shape>
     </item>
     <item
-        android:bottom="@dimen/_24dp"
         android:drawable="@drawable/ic_logo"
-        android:gravity="center"
-        android:left="@dimen/_24dp"
-        android:right="@dimen/_24dp"
-        android:top="@dimen/_24dp" />
+        android:gravity="center" />
 </layer-list>

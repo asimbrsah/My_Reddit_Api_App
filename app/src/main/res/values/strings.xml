@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">My RedditApi App</string>
+
     <string name="internet_connection_unavailable">Please check your internet connection</string>
-    <string name="open_drawer">Open Drawer</string>
-    <string name="close_drawer">Close Drawer</string>
-    <string name="popular_text">Popular</string>
+
     <string name="all_text">All</string>
+    <string name="popular_text">Popular</string>
+    <string name="science_text">Science</string>
+    <string name="art_text">Art</string>
 </resources>
