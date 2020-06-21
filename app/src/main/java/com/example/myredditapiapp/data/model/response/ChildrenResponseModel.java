@@ -64,6 +64,11 @@ public class ChildrenResponseModel {
         @Embedded
         private Media media;
 
+        @SerializedName("url")
+        @Expose
+        @ColumnInfo(name = "url")
+        private String url;
+
         public String getHeader() {
             return header;
         }
@@ -126,6 +131,14 @@ public class ChildrenResponseModel {
 
         public void setMedia(Media media) {
             this.media = media;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
         }
 
         public static class Preview {

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 
 import com.example.myredditapiapp.utils.NetworkUtil;
-import com.google.android.exoplayer2.SimpleExoPlayer;
 
 import javax.inject.Singleton;
 
@@ -25,11 +24,5 @@ public class UtilProviderModule {
     @Provides
     NetworkUtil provideNetworkUtil(ConnectivityManager connectivityManager) {
         return new NetworkUtil(connectivityManager);
-    }
-
-    @Singleton
-    @Provides
-    SimpleExoPlayer provideSimpleExoPlayer(Application application) {
-        return new SimpleExoPlayer.Builder(application).build();
     }
 }

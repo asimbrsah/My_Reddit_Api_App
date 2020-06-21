@@ -87,10 +87,6 @@ android {
             // APIs
             buildConfigField("String", "BASE_URL", "\"${storeProperties['staging_base_url']}\"")
             buildConfigField("String", "DEFAULT_CATEGORY_KEY_VALUE", "\"${storeProperties['default_category_key_value']}\"")
-            buildConfigField("String", "ALL_CATEGORY_END_POINT_URL", "\"${storeProperties['all_category_end_point_url']}\"")
-            buildConfigField("String", "POPULAR_CATEGORY_END_POINT_URL", "\"${storeProperties['popular_category_end_point_url']}\"")
-            buildConfigField("String", "SCIENCE_CATEGORY_END_POINT_URL", "\"${storeProperties['science_category_end_point_url']}\"")
-            buildConfigField("String", "ART_CATEGORY_END_POINT_URL", "\"${storeProperties['art_category_end_point_url']}\"")
 
             // Constants values
             buildConfigField("String", "SHARED_PREF_NAME", "\"${storeProperties['staging_shared_preference_name']}\"")
@@ -109,10 +105,6 @@ android {
             // APIs
             buildConfigField("String", "BASE_URL", "\"${storeProperties['staging_base_url']}\"")
             buildConfigField("String", "DEFAULT_CATEGORY_KEY_VALUE", "\"${storeProperties['default_category_key_value']}\"")
-            buildConfigField("String", "ALL_CATEGORY_END_POINT_URL", "\"${storeProperties['all_category_end_point_url']}\"")
-            buildConfigField("String", "POPULAR_CATEGORY_END_POINT_URL", "\"${storeProperties['popular_category_end_point_url']}\"")
-            buildConfigField("String", "SCIENCE_CATEGORY_END_POINT_URL", "\"${storeProperties['science_category_end_point_url']}\"")
-            buildConfigField("String", "ART_CATEGORY_END_POINT_URL", "\"${storeProperties['art_category_end_point_url']}\"")
 
             // Constants values
             buildConfigField("String", "SHARED_PREF_NAME", "\"${storeProperties['staging_shared_preference_name']}\"")
@@ -132,11 +124,7 @@ android {
             // APIs
             buildConfigField("String", "BASE_URL", "\"${storeProperties['production_base_url']}\"")
             buildConfigField("String", "DEFAULT_CATEGORY_KEY_VALUE", "\"${storeProperties['default_category_key_value']}\"")
-            buildConfigField("String", "ALL_CATEGORY_END_POINT_URL", "\"${storeProperties['all_category_end_point_url']}\"")
-            buildConfigField("String", "POPULAR_CATEGORY_END_POINT_URL", "\"${storeProperties['popular_category_end_point_url']}\"")
-            buildConfigField("String", "SCIENCE_CATEGORY_END_POINT_URL", "\"${storeProperties['science_category_end_point_url']}\"")
-            buildConfigField("String", "ART_CATEGORY_END_POINT_URL", "\"${storeProperties['art_category_end_point_url']}\"")
-
+           
             // Constants values
             buildConfigField("String", "SHARED_PREF_NAME", "\"${storeProperties['production_shared_preference_name']}\"")
             buildConfigField("String", "DATABASE_NAME", "\"${storeProperties['production_room_database_name']}\"")

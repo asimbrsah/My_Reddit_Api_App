@@ -5,18 +5,24 @@
 
     <data>
 
+        <variable
+            name="children_response_model"
+            type="com.example.myredditapiapp.data.model.response.ChildrenResponseModel" />
+
     </data>
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/lyt_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="@dimen/_8dp">
+        android:layout_marginBottom="@dimen/_6dp"
+        app:cardElevation="@dimen/_6dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/lyt_constraint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/pure_white"
-            android:paddingTop="@dimen/_4dp">
+            android:background="@color/pure_white">
 
             <TextView
                 android:id="@+id/tv_header"
@@ -59,102 +65,52 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_header"
                 tools:text="Settle police officers were recently filmed running into a pedestain." />
 
-            <FrameLayout
-                android:id="@+id/media_container"
-                android:layout_width="match_parent"
+            <com.example.myredditapiapp.widgets.ResizableImageView
+                android:id="@+id/img_thumbnail"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8dp"
+                android:scaleType="fitXY"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title">
+                app:layout_constraintTop_toBottomOf="@+id/tv_title"
+                tools:ignore="ContentDescription"
+                tools:src="@drawable/ic_white_background_100dp"
+                tools:visibility="visible" />
 
-                <com.example.myredditapiapp.widgets.ResizableImageView
-                    android:id="@+id/img_thumbnail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:scaleType="fitXY"
-                    android:visibility="invisible"
-                    tools:ignore="ContentDescription"
-                    tools:src="@drawable/ic_white_background_100dp"
-                    tools:visibility="visible" />
-
-                <com.google.android.exoplayer2.ui.PlayerView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:visibility="gone"
-                    tools:ignore="ContentDescription"
-                    tools:visibility="visible" />
-
-                <include
-                    android:id="@+id/include_circular_progress_bar"
-                    layout="@layout/lyt_circular_progress_bar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:visibility="gone"
-                    tools:visibility="visible" />
-
-                <ImageView
-                    android:id="@+id/volume_control"
-                    android:layout_width="@dimen/_24dp"
-                    android:layout_height="@dimen/_24dp"
-                    android:layout_gravity="end|bottom"
-                    android:layout_marginEnd="@dimen/_16dp"
-                    android:layout_marginBottom="@dimen/_16dp"
-                    android:src="@drawable/ic_volume_off_light_grey_24dp"
-                    android:visibility="gone"
-                    tools:ignore="ContentDescription"
-                    tools:visibility="visible" />
-
-            </FrameLayout>
-
-            <com.google.android.material.card.MaterialCardView
+            <LinearLayout
                 android:id="@+id/lyt_bottom"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:cardElevation="@dimen/_8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/media_container">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center|start"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/_8dp"
-                    android:weightSum="3">
-
-                    <TextView
-                        android:id="@+id/tv_score"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_like_16dp"
-                        android:drawablePadding="@dimen/_4dp"
-                        android:gravity="center"
-                        android:textSize="@dimen/_14sp"
-                        tools:text="1,234 k likes" />
-
-                    <TextView
-                        android:id="@+id/tv_comment"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_16dp"
-                        android:textSize="@dimen/_14sp"
-                        tools:text="1,234 k comments" />
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_8dp"
-                android:background="@color/space_grey"
+                android:layout_height="wrap_content"
+                android:gravity="center|start"
+                android:orientation="horizontal"
+                android:padding="@dimen/_8dp"
+                android:weightSum="3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lyt_bottom" />
+                app:layout_constraintTop_toBottomOf="@+id/img_thumbnail">
+
+                <TextView
+                    android:id="@+id/tv_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_like_16dp"
+                    android:drawablePadding="@dimen/_4dp"
+                    android:gravity="center"
+                    android:textSize="@dimen/_14sp"
+                    tools:text="1,234 k likes" />
+
+                <TextView
+                    android:id="@+id/tv_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16dp"
+                    android:textSize="@dimen/_14sp"
+                    tools:text="1,234 k comments" />
+
+            </LinearLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

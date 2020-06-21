@@ -19,13 +19,10 @@ import com.example.myredditapiapp.base.BaseFragment;
 import com.example.myredditapiapp.databinding.FragmentCategoryBinding;
 import com.example.myredditapiapp.di.modules.GlideApp;
 import com.example.myredditapiapp.utils.UserMessageUtil;
-import com.google.android.exoplayer2.SimpleExoPlayer;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-
-import javax.inject.Inject;
 
 public class CategoryFragment extends BaseFragment {
 
@@ -38,9 +35,6 @@ public class CategoryFragment extends BaseFragment {
     private String defaultCategoryKey = "";
     private boolean loading = false;
     private int visibleItemCount, pastVisibleItemCount, totalItemCount;
-
-    @Inject
-    SimpleExoPlayer simpleExoPlayer;
 
     private boolean isScrolled = false;
 
@@ -77,7 +71,7 @@ public class CategoryFragment extends BaseFragment {
     private void setUpRecyclerView(RecyclerView categoryRecycler) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         categoryRecycler.setLayoutManager(linearLayoutManager);
-        categoryAdapter = new CategoryAdapter(getActivity(), new ArrayList<>(), GlideApp.with(requireContext()), simpleExoPlayer);
+        categoryAdapter = new CategoryAdapter(getActivity(), new ArrayList<>(), GlideApp.with(requireContext()));
         categoryRecycler.setAdapter(categoryAdapter);
 
         categoryRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {

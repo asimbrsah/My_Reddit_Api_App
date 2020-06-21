@@ -2,40 +2,39 @@ package com.example.myredditapiapp.presentation.main.category;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.RequestManager;
 import com.example.myredditapiapp.R;
 import com.example.myredditapiapp.data.model.response.ChildrenResponseModel;
-import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.example.myredditapiapp.databinding.ItemCategoryBinding;
 
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
 
-    private List<ChildrenResponseModel> childrenResponseModelList;
+    private final Context context;
     private final RequestManager requestManager;
-    private SimpleExoPlayer simpleExoPlayer;
+    private final List<ChildrenResponseModel> childrenResponseModelList;
 
     CategoryAdapter(Context context,
                     List<ChildrenResponseModel> childrenResponseModelList,
-                    RequestManager requestManager,
-                    SimpleExoPlayer simpleExoPlayer) {
-        this.childrenResponseModelList = childrenResponseModelList;
+                    RequestManager requestManager) {
+        this.context = context;
         this.requestManager = requestManager;
-        this.simpleExoPlayer = simpleExoPlayer;
+        this.childrenResponseModelList = childrenResponseModelList;
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_category, parent, false);
-        return new CategoryViewHolder(v, requestManager, simpleExoPlayer);
+        ItemCategoryBinding itemCategoryBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_category, parent, false);
+        return new CategoryViewHolder(context, requestManager, itemCategoryBinding);
     }
 
     @Override
@@ -49,15 +48,19 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
     }
 
     void updateCategoryData(List<ChildrenResponseModel> childrenResponseModelList) {
-        this.childrenResponseModelList.addAll(childrenResponseModelList);
-        notifyDataSetChanged();
+        if (this.childrenResponseModelList != null && this.childrenResponseModelList.size() > 0) {
+            this.childrenResponseModelList.addAll(childrenResponseModelList);
+            notifyDataSetChanged();
+        }
     }
 
     void setCategoryData(List<ChildrenResponseModel> childrenResponseModelList) {
-        if (this.childrenResponseModelList.size() > 0) {
-            this.childrenResponseModelList.clear();
+        if (this.childrenResponseModelList != null) {
+            if (this.childrenResponseModelList.size() > 0) {
+                this.childrenResponseModelList.clear();
+            }
+            this.childrenResponseModelList.addAll(childrenResponseModelList);
+            notifyDataSetChanged();
         }
-        this.childrenResponseModelList.addAll(childrenResponseModelList);
-        notifyDataSetChanged();
     }
 }

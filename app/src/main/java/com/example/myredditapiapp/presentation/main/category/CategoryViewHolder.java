@@ -1,83 +1,70 @@
 package com.example.myredditapiapp.presentation.main.category;
 
+import android.content.Context;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.RequestManager;
-import com.example.myredditapiapp.R;
+import com.example.myredditapiapp.Navigator;
 import com.example.myredditapiapp.data.model.response.ChildrenResponseModel;
+import com.example.myredditapiapp.databinding.ItemCategoryBinding;
 import com.example.myredditapiapp.utils.GlideUtil;
 import com.example.myredditapiapp.utils.NumberCountUtil;
-import com.example.myredditapiapp.widgets.ResizableImageView;
-import com.google.android.exoplayer2.SimpleExoPlayer;
 
 public class CategoryViewHolder extends RecyclerView.ViewHolder {
 
-    private TextView tvHeader;
-    private TextView tvDomain;
-    private TextView tvTitle;
-    private TextView tvScore;
-    private TextView tvComment;
-    private FrameLayout mediaContainer;
-    private ResizableImageView imgThumbnail;
-    private ImageView volumeControl;
-    private View videoProgressView;
+    private final Context context;
+    private final RequestManager requestManager;
+    private final ItemCategoryBinding itemCategoryBinding;
 
-    private RequestManager requestManager;
-    private SimpleExoPlayer simpleExoPlayer;
-
-    CategoryViewHolder(View itemView,
+    CategoryViewHolder(Context context,
                        RequestManager requestManager,
-                       SimpleExoPlayer simpleExoPlayer) {
+                       ItemCategoryBinding itemCategoryBinding) {
 
-        super(itemView);
+        super(itemCategoryBinding.getRoot());
+        this.context = context;
         this.requestManager = requestManager;
-
-        tvHeader = itemView.findViewById(R.id.tv_header);
-        tvDomain = itemView.findViewById(R.id.tv_domain);
-        tvTitle = itemView.findViewById(R.id.tv_title);
-        tvScore = itemView.findViewById(R.id.tv_score);
-        tvComment = itemView.findViewById(R.id.tv_comment);
-        mediaContainer = itemView.findViewById(R.id.media_container);
-        imgThumbnail = itemView.findViewById(R.id.img_thumbnail);
-        volumeControl = itemView.findViewById(R.id.volume_control);
-        videoProgressView = itemView.findViewById(R.id.include_circular_progress_bar);
-        this.simpleExoPlayer = simpleExoPlayer;
+        this.itemCategoryBinding = itemCategoryBinding;
     }
 
     void bind(ChildrenResponseModel childrenResponseModel) {
 
-        tvHeader.setText(childrenResponseModel != null &&
+        String title = childrenResponseModel != null &&
+                childrenResponseModel.getChildrenData() != null &&
+                childrenResponseModel.getChildrenData().getTitle() != null &&
+                !childrenResponseModel.getChildrenData().getTitle().isEmpty() ?
+                childrenResponseModel.getChildrenData().getTitle() : "";
+
+        itemCategoryBinding.tvHeader.setText(childrenResponseModel != null &&
                 childrenResponseModel.getChildrenData() != null &&
                 childrenResponseModel.getChildrenData().getHeader() != null &&
                 !childrenResponseModel.getChildrenData().getHeader().isEmpty() ?
                 childrenResponseModel.getChildrenData().getHeader() : "");
 
-        tvDomain.setText(childrenResponseModel != null &&
+        itemCategoryBinding.tvDomain.setText(childrenResponseModel != null &&
                 childrenResponseModel.getChildrenData() != null &&
                 childrenResponseModel.getChildrenData().getDomain() != null &&
                 !childrenResponseModel.getChildrenData().getDomain().isEmpty() ?
                 childrenResponseModel.getChildrenData().getDomain() : "");
 
-        tvTitle.setText(childrenResponseModel != null &&
-                childrenResponseModel.getChildrenData() != null &&
-                childrenResponseModel.getChildrenData().getTitle() != null &&
-                !childrenResponseModel.getChildrenData().getTitle().isEmpty() ?
-                childrenResponseModel.getChildrenData().getTitle() : "");
+        itemCategoryBinding.tvTitle.setText(title);
 
-        tvScore.setText(childrenResponseModel != null &&
+        itemCategoryBinding.tvScore.setText(childrenResponseModel != null &&
                 childrenResponseModel.getChildrenData() != null &&
                 childrenResponseModel.getChildrenData().getScore() > 0 ?
                 String.format("%s likes", NumberCountUtil.format(childrenResponseModel.getChildrenData().getScore())) : "");
 
-        tvComment.setText(childrenResponseModel != null &&
+        itemCategoryBinding.tvComment.setText(childrenResponseModel != null &&
                 childrenResponseModel.getChildrenData() != null &&
                 childrenResponseModel.getChildrenData().getNumComments() > 0 ?
                 String.format("%s comments", NumberCountUtil.format(childrenResponseModel.getChildrenData().getNumComments())) : "");
+
+        String detailUrl = childrenResponseModel != null &&
+                childrenResponseModel.getChildrenData() != null &&
+                childrenResponseModel.getChildrenData().getUrl() != null &&
+                !childrenResponseModel.getChildrenData().getUrl().isEmpty() ?
+                childrenResponseModel.getChildrenData().getUrl() : "";
 
         String imageUrl = childrenResponseModel != null &&
                 childrenResponseModel.getChildrenData() != null &&
@@ -116,33 +103,36 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
             if (imageUrl.contains("amp;")) {
                 imageUrl = imageUrl.replace("amp;", "");
             }
-            GlideUtil.setUpImageWithRequestOptions(requestManager, imageUrl, imgThumbnail);
-            imgThumbnail.setVisibility(View.VISIBLE);
+            GlideUtil.setUpImageWithPlaceHolder(requestManager, imageUrl, itemCategoryBinding.imgThumbnail);
+            itemCategoryBinding.imgThumbnail.setVisibility(View.VISIBLE);
         } else {
-            imgThumbnail.setVisibility(View.GONE);
+            itemCategoryBinding.imgThumbnail.setVisibility(View.GONE);
         }
 
-        boolean isVideoLinkAvailable = childrenResponseModel != null &&
+        String videoUrl = childrenResponseModel != null &&
                 childrenResponseModel.getChildrenData() != null &&
-                childrenResponseModel.getChildrenData().getVideo() != null ?
-                childrenResponseModel.getChildrenData().getVideo() : false;
+                childrenResponseModel.getChildrenData().getMedia() != null &&
+                childrenResponseModel.getChildrenData().getMedia().getRedditVideo() != null &&
+                childrenResponseModel.getChildrenData().getMedia().getRedditVideo().getVideoUrl() != null &&
+                !childrenResponseModel.getChildrenData().getMedia().getRedditVideo().getVideoUrl().isEmpty() ?
+                childrenResponseModel.getChildrenData().getMedia().getRedditVideo().getVideoUrl() : "";
 
-        if (isVideoLinkAvailable) {
+        String finalImageUrl = imageUrl;
 
-            String videoUrl = childrenResponseModel.getChildrenData() != null &&
-                    childrenResponseModel.getChildrenData().getMedia() != null &&
-                    childrenResponseModel.getChildrenData().getMedia().getRedditVideo().getVideoUrl() != null &&
-                    !childrenResponseModel.getChildrenData().getMedia().getRedditVideo().getVideoUrl().isEmpty() ?
-                    childrenResponseModel.getChildrenData().getMedia().getRedditVideo().getVideoUrl() : "";
-
-            boolean isGif = childrenResponseModel.getChildrenData() != null &&
-                    childrenResponseModel.getChildrenData().getMedia() != null &&
-                    childrenResponseModel.getChildrenData().getMedia().getRedditVideo().getGif() != null ?
-                    childrenResponseModel.getChildrenData().getMedia().getRedditVideo().getGif() : false;
-
-            if (videoUrl != null && !videoUrl.isEmpty()) {
-
+        itemCategoryBinding.getRoot().setOnClickListener(v -> {
+            if (detailUrl != null && !detailUrl.isEmpty()) {
+                Navigator.openCategoryDetailScreen(context, title, detailUrl, false, false);
             }
-        }
+        });
+
+        itemCategoryBinding.imgThumbnail.setOnClickListener(v -> {
+            if (videoUrl != null && !videoUrl.isEmpty()) {
+                Navigator.openCategoryDetailScreen(context, title, videoUrl, true, false);
+            } else if (finalImageUrl != null && !finalImageUrl.isEmpty()) {
+                Navigator.openCategoryDetailScreen(context, title, finalImageUrl, false, true);
+            } else {
+                Navigator.openCategoryDetailScreen(context, title, detailUrl, false, false);
+            }
+        });
     }
 }
