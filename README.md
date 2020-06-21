@@ -17,6 +17,13 @@
 - Navigation component has been used for better navigation between pages through navigation graph.
 - Data Binding is used to reduce the boiler plate code for finding the view reference and directly bind the view with live data.
 
+## Prerequisite for the project
+- Android studio 3.3 or higher.
+- Create your own store property file.
+- Use the Reddit Api base url and add the value for "staging_base_url" or "production_base_url" in store file.
+- for pagination add the default start key value for "default_category_key_value" variable in store file
+- for remaining constants values it is optional to use from store file, we can also use it directly from gradle file however it is preferred to use ".properties" file for keystore credentials and other sensitive information.
+
 
 ## Note
 
